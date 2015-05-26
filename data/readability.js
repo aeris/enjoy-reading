@@ -1796,7 +1796,6 @@ var readability = {
 
 };
 
-
 self.port.on('init', function () {
 	readability.init();
 	window.focus();
