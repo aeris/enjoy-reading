@@ -23,7 +23,7 @@ augmentSize = ->
 	if index < fontsizeClasses.length - 1
 		oldClass = fontsizeClasses[index]
 		newClass = fontsizeClasses[index + 1]
-		switch_class document.getElementById('readInner'), oldClass, newClass
+		switch_class document.body, oldClass, newClass
 		self.port.emit 'style', {rule: 'size', value: newClass}
 
 reduceSize = ->
@@ -31,11 +31,11 @@ reduceSize = ->
 	if index > 0
 		oldClass = fontsizeClasses[index]
 		newClass = fontsizeClasses[index - 1]
-		switch_class document.getElementById('readInner'), oldClass, newClass
+		switch_class document.body, oldClass, newClass
 		self.port.emit 'style', {rule: 'size', value: newClass}
 
 getSize = ->
-	innerClasses = document.getElementById('readInner').className.split(' ')
+	innerClasses = document.body.className.split(' ')
 	find_matching innerClasses, (klass) -> klass.indexOf('size-') > -1
 
 # Margin
@@ -44,7 +44,7 @@ augmentMargin = ->
 	if index < marginClasses.length - 1
 		oldClass = marginClasses[index]
 		newClass = marginClasses[index + 1]
-		switch_class document.getElementById('readInner'), oldClass, newClass
+		switch_class document.body, oldClass, newClass
 		self.port.emit 'style', {rule: 'margin', value: newClass}
 
 reduceMargin = () ->
@@ -52,22 +52,21 @@ reduceMargin = () ->
 	if index > 0
 		oldClass = marginClasses[index]
 		newClass = marginClasses[index - 1]
-		switch_class document.getElementById('readInner'), oldClass, newClass
+		switch_class document.body, oldClass, newClass
 		self.port.emit 'style', {rule: 'margin', value: newClass}
 
 getMargin = ->
-	innerClasses = document.getElementById('readInner').className.split(' ')
+	innerClasses = document.body.className.split(' ')
 	find_matching innerClasses, (klass) -> klass.indexOf('margin-') > -1
 
 # Styles
 getStyle = ->
-	bodyClasses = document.getElementById('readabilityBody').className.split(' ');
+	bodyClasses = document.body.className.split(' ');
 	find_matching bodyClasses, (klass) -> klass.indexOf('style-') > -1
 
 setStyle = (newClass) ->
 	oldClass = getStyle()
-	switch_class document.getElementById('readabilityBody'), oldClass, newClass
-	switch_class document.getElementById('readOverlay'), oldClass, newClass
+	switch_class document.body, oldClass, newClass
 	self.port.emit 'style', {rule: 'style', value: newClass}
 
 self.port.on 'click', (urls) ->
@@ -86,7 +85,7 @@ self.port.on 'click', (urls) ->
 		listenForKeystroke()
 
 	#Is the plugin active ?
-	unless document.getElementById('readabilityBody')?
+	if document.body.className.search(/enjoy-reading/) < 0
 		self.port.emit 'ready'
 		window.addEventListener 'click', (event) ->
 			switch event.target.id

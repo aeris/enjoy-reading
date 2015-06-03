@@ -1,3 +1,7 @@
 *.iml
 *.xpi
+.sass-cache/
 data/resources.js
+data/readability.css
+data/readability.js
+pkg/

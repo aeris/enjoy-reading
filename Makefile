@@ -4,16 +4,29 @@ OBJECTS =
 %.js: %.coffee
 	coffee -bc "$<"
 
-enjoy-reading.xpi: build
-	cfx xpi
+%.css: %.scss
+	sass --sourcemap=none "$<" "$@"
 
-build: data/resources.js
+pkg:
+	mkdir "$@" "$@/data" "$@/lib"
+
+pkg/%: % pkg
+	cp -r "$<" "$@"
+
+build: data/resources.js data/readability.js data/readability.css
+
+enjoy-reading.xpi: build \
+	pkg/data/readability.js pkg/data/readability.css \
+	pkg/data/resources.js pkg/data/images pkg/lib/main.js \
+	pkg/package.json
+	cfx xpi --pkgdir=pkg
 
 run: build
-	cfx run
+	cfx run --profiledir=~/.mozilla/firefox/test
 
 xpi: enjoy-reading.xpi
 
 clean:
-	rm data/resources.js
+	rm data/resources.js data/readability.js data/readability.css
+	rm -r pkg
 
