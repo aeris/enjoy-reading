@@ -1,23 +1,24 @@
-enjoyreading2
-=============
+# Enjoy Reading
 
-Maintenance fork of the Enjoy Reading addon by jblanche.
-This, unlike the upstream, works with current Firefox versions.
+Improve the readability of your favorites websites and get the best online reading experience.
 
-XPI download (for installing in Firefox): <http://pub.lrem.net/2013/09/enjoy-reading-2.xpi>
+Enjoy Reading is heavily based on the [old Readability](https://code.google.com/p/arc90labs-readability/) open source bookmarklet.  
+The only difference for now is that there is no more server calls to the readability server, the add-on embbeds all the logic !
 
-The upstream: <https://addons.mozilla.org/en-us/firefox/addon/enjoy-reading/>
+Firefox extension available on [Mozilla Add-ons](https://addons.mozilla.org/firefox/addon/enjoy-reading/)
 
-User review
------------
+Created by [Jonathan Blanchet](http://www.jblanche.fr/).  
+Maintained by [Remigiusz Modrzejewski](http://lrem.net/) until end on 2013.
 
-The only one that got through before AMO took down the add-on:
+# How to develop
 
-> I've had bad eyes my whole life and reading various sites can be tricky for me. I think I've tried every other spawn-of-Readability addon available, but this one is the absolute best. Thank you so much for keeping it alive! It is something I use easily a dozen times every day and it improves the quality of my online life more than I can even express with words.
+This add-on needs [Mozilla SDK](https://developer.mozilla.org/en-US/Add-ons/SDK) to be built.
 
-Note
-----
-This is not in AMO for *good* reasons.
-Seems that it is impossible right now to submit readability-based add-on.
-The reply is broken down in the issues page.
-**None of the problems have been introduced in this fork**.
+Depends on [Coffeescript](http://coffeescript.org/) and [SASS](http://sass-lang.com/) for CSS and JS generation.
+
+# How to help
+
+This add-on tries to guess what is the primary content of a web page.
+
+Currently, guessing is very simple (long text, presence of link, number of comma…), and so, perhaps not very accurate.  
+Feel free to report any site with wrong prediction !
