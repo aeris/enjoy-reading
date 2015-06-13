@@ -22,7 +22,7 @@ readability =
 	flags: this.FLAG_STRIP_UNLIKELYS | this.FLAG_WEIGHT_CLASSES | this.FLAG_CLEAN_CONDITIONALLY # Start with all flags set.
 	sizeClass: 'size-medium'
 	marginClass: 'margin-medium'
-	styleClass: 'style-newspaper'
+	styleClass: 'style-clean'
 	tagsToScore: ['SECTION', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'TD', 'PRE']
 
 	###
@@ -146,15 +146,28 @@ readability =
 	getArticleTools: ->
 		tools = document.createElement 'footer'
 		tools.className = 'enjoy-reading-tools'
-		tools.innerHTML = '''<a class="controls" href="#" title="Augment Size" id="augment-size">Augment font Size</a>
-			<a class="controls" href="#" title="Reduce Size" id="reduce-size">Reduce font Size</a>
-			<a class="controls" href="#" title="Reduce Margin" id="reduce-margin">Reduce margin</a>
-			<a class="controls" href="#" title="Augment Margin" id="augment-margin">Augment margin</a>
-			<a class="controls" href="#" title="Newspaper" id="newspaper">Newspaper</a>
-			<a class="controls" href="#" title="Novel" id="novel">Novel</a>
-			<a class="controls" href="#" title="Ebook" id="ebook">Ebook</a>
-			<a class="controls" href="#" title="Terminal" id="terminal">Terminal</a>
-			<a href="#" onclick="javascript:window.print();" title="Print page" id="print-page">Print Page</a>'''
+		items =
+			'augment-size': 'Augment font size',
+			'reduce-size': 'Reduce font size',
+			'augment-margin': 'Augment margin',
+			'reduce-margin': 'Reduce margin',
+			'style-clean': 'Clean style',
+			'style-solarized-light': 'Light solarized style'
+			'style-solarized-dark': 'Dark solarized style',
+		for id, text of items
+			a = document.createElement 'a'
+			a.href = '#'
+			a.id = id
+			a.title = a.textContent = text
+			tools.appendChild a
+
+		a = document.createElement 'a'
+		a.href = '#'
+		a.id = 'print-page'
+		a.title = a.textContent = 'Print page'
+		a.onclick = -> window.print()
+		tools.appendChild a
+
 		tools
 
 	###
@@ -223,7 +236,11 @@ readability =
 		footer.appendChild document.createTextNode 'Excerpted from '
 		footer.appendChild cite
 		footer.appendChild document.createElement 'br'
-		footer.appendChild document.createTextNode window.location.href
+
+		a = document.createElement 'a'
+		a.title = document.title
+		a.href = a.textContent = window.location.href
+		footer.appendChild a
 
 		footer
 
@@ -468,7 +485,7 @@ readability =
 			i = attrs.length - 1
 			while i >= 0
 				attr = attrs[i].name.toLowerCase()
-				e.removeAttribute attr unless attr in ['src', 'alt', 'title']
+				e.removeAttribute attr unless attr in ['src', 'alt', 'href', 'title']
 				--i
 
 		dbg this.dbgNode e

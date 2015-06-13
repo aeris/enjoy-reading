@@ -70,19 +70,7 @@ setStyle = (newClass) ->
 	self.port.emit 'style', {rule: 'style', value: newClass}
 
 self.port.on 'click', (urls) ->
-	# Is the CSS available yet ?
-	unless document.getElementById('readability-link')?
-		link = content.document.createElement 'link'
-		link.rel = 'stylesheet'
-		link.id = 'readability-link'
-		link.href = urls.css
-		link.type = 'text/css'
-		link.media = 'all'
-		if content.document.createElement('div').insertAdjacentHTML?
-			document.querySelector('head').insertAdjacentHTML 'beforeend', new XMLSerializer().serializeToString link
-		else
-			document.querySelector('head').appendChild link
-		listenForKeystroke()
+	listenForKeystroke()
 
 	#Is the plugin active ?
 	if document.body.className.search(/enjoy-reading/) < 0
@@ -93,9 +81,8 @@ self.port.on 'click', (urls) ->
 				when 'reduce-size' then reduceSize()
 				when 'augment-margin' then augmentMargin()
 				when 'reduce-margin' then reduceMargin()
-				when 'newspaper' then setStyle 'style-newspaper'
-				when 'novel' then setStyle 'style-novel'
-				when 'ebook' then setStyle 'style-ebook'
-				when 'terminal' then setStyle 'style-terminal'
+				when 'style-clean' then setStyle 'style-clean'
+				when 'style-solarized-light' then setStyle 'style-solarized-light'
+				when 'style-solarized-dark' then setStyle 'style-solarized-dark'
 	else
 		window.location.reload()
