@@ -76,7 +76,7 @@ readability =
 
 		style = document.createElement 'link'
 		style.rel = 'stylesheet'
-		style.href = 'resource://enjoyreading-at-jblanche-dot-fr/enjoy-reading/data/readability.css'
+		style.href = 'resource://enjoy-reading/readability.css'
 		style.type = 'text/css'
 		style.media = 'all'
 
