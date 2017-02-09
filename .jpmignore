@@ -1,0 +1,9 @@
+/.git
+/.gitignore
+/.jpmignore
+/data/*.coffee
+/data/*.scss
+/LICENSE
+/Makefile
+/README.md
+/*.xpi
