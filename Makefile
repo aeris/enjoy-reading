@@ -1,4 +1,5 @@
 .PHONY: build run xpi clean
+.DEFAULT_GOAL := xpi
 OBJECTS =
 
 %.js: %.coffee
@@ -19,10 +20,10 @@ enjoy-reading.xpi: build \
 	pkg/data/readability.js pkg/data/readability.css \
 	pkg/data/resources.js pkg/data/images pkg/lib/main.js \
 	pkg/package.json
-	cfx xpi --pkgdir=pkg
+	~/.npm/bin/jpm xpi
 
 run: build
-	cfx run --profiledir=~/.mozilla/firefox/test
+	~/.npm/bin/jpm run --profile=dev
 
 xpi: enjoy-reading.xpi
 
